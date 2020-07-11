@@ -51,7 +51,7 @@ const getCovidResults = async (code) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/summary?surveyFormId=${code}&disasterType=covid`;
     axios.get(url)
         .then((response) => {
-            categories = response.data.availableServices
+            categories = response.data.availableServices;
             for (let c = 0; c < categories.length; c++) {
                 category = categories[c];
                 console.log(`Category: ${category.category}\n`);
@@ -140,7 +140,7 @@ if (type === 'b') {
         renter = prompt();
     }
 
-    if (propertyOwner === 'y') {
+    if (renter === 'y') {
         data.basicAssistance.renter = true;
     } else {
         data.basicAssistance.renter = false;
@@ -221,7 +221,7 @@ if (type === 'b') {
     }
 
     if (vessel === 'y') {
-        data.propertyAndVehicle.registeredVehicle = true;
+        data.propertyAndVehicle.registeredVessel = true;
     } else {
         data.propertyAndVehicle.registeredVessel = false;
     }
