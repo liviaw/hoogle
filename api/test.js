@@ -3,20 +3,20 @@ const prompt = require('prompt-sync')();
 
 const sendBushfireSurvey = async (json) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/bushfire/surveyform`;
-    axios.post(url, json, { headers: { 'Content-Type': 'application/json' }})
+    axios.post(url, json, { headers: { 'Content-Type': 'application/json' }});
         .then((response) => {
             getBushFireResults(response.data);
-        })
+        });
         .catch((error) => {
-            console.log(error)
+            console.log(error);
         });
 }
 
 const getBushFireResults = async (code) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/summary?surveyFormId=${code}`;
-    axios.get(url)
+    axios.get(url);
         .then((response) => {
-                categories = response.data.availableServices
+            categories = response.data.availableServices
             for (let c = 0; c < categories.length; c++) {
                 category = categories[c];
                 console.log(`Category: ${category.category}\n`);
@@ -29,33 +29,45 @@ const getBushFireResults = async (code) => {
                 }
                 console.log('\n');
             }
-        })
+        });
         .catch((error) => {
             console.log(error);
-        })
+        });
 }
 
 
 const sendCovidSurvey = async (json) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/covid/surveyform`;
-    axios.post(url, json, { headers: { 'Content-Type': 'application/json' }})
+    axios.post(url, json, { headers: { 'Content-Type': 'application/json' }});
         .then((response) => {
             getCovidResults(response.data);
-        })
+        });
         .catch((error) => {
-            console.log(error)
+            console.log(error);
         });
 }
 
 const getCovidResults = async (code) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/summary?surveyFormId=${code}&disasterType=covid`;
-    axios.get(url)
+    axios.get(url);
         .then((response) => {
-            console.log(JSON.stringify(response.data.availableServices))
-        })
+            categories = response.data.availableServices
+            for (let c = 0; c < categories.length; c++) {
+                category = categories[c];
+                console.log(`Category: ${category.category}\n`);
+                for (let s = 0; s < category.services.length; s++) {
+                    service = category.services[s];
+                    console.log(`Provider: ${service.provider}$`);
+                    console.log(`Initiative: ${service.initiativeName}`);
+                    console.log(service.description.replace(/<[^<>]*>/, ''));
+                    console.log(`Further information: ${service.furtherInformationLink}\n`);
+                }
+                console.log('\n');
+            }
+        });
         .catch((error) => {
             console.log(error);
-        })
+        });
 }
 
 
@@ -64,7 +76,7 @@ console.log("Please type 'b' for bushfire or 'c' for covid.");
 
 let type = prompt();
 while (type !== 'b' && type !== 'c') {
-    console.log("That was not valid. Please type 'b' for bushfire or 'c' for covid.")
+    console.log("That was not valid. Please type 'b' for bushfire or 'c' for covid.");
     type = prompt();
 }
 
@@ -80,7 +92,7 @@ if (type === 'b') {
 
     data.basicAssistance = {};
 
-    console.log("Have you been affected as a business owner?")
+    console.log("Have you been affected as a business owner?");
     let businessOwner = prompt();
     while (businessOwner !== 'y' && businessOwner !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
@@ -95,7 +107,7 @@ if (type === 'b') {
 
     data.basicAssistance = {};
 
-    console.log("Have you been affected as a farmer or primary producer?")
+    console.log("Have you been affected as a farmer or primary producer?");
     let farmerOrPrimaryProducer = prompt();
     while (farmerOrPrimaryProducer !== 'y' && farmerOrPrimaryProducer !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
@@ -108,7 +120,7 @@ if (type === 'b') {
         data.basicAssistance.farmerOrPrimaryProducer = false;
     }
 
-    console.log("Have you been affected as a property owner?")
+    console.log("Have you been affected as a property owner?");
     let propertyOwner = prompt();
     while (propertyOwner !== 'y' && propertyOwner !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
@@ -121,7 +133,7 @@ if (type === 'b') {
         data.basicAssistance.propertyOwner = false;
     }
 
-    console.log("Have you been affected as a renter?")
+    console.log("Have you been affected as a renter?");
     let renter = prompt();
     while (renter !== 'y' && renter !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
@@ -134,7 +146,7 @@ if (type === 'b') {
         data.basicAssistance.renter = false;
     }
 
-    console.log("Have you been affected as a Volunteer Firefighter or SES?")
+    console.log("Have you been affected as a Volunteer Firefighter or SES?");
     let volunteerFirefighterOrSES = prompt();
     while (volunteerFirefighterOrSES !== 'y' && volunteerFirefighterOrSES !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
@@ -175,7 +187,7 @@ if (type === 'b') {
     data.propertyAndVehicle = {};
 
     console.log("Has your property been impacted or damaged?");
-    console.log("This includes houses, buildings, sheds, fencing, business premises and fallen trees.")
+    console.log("This includes houses, buildings, sheds, fencing, business premises and fallen trees.");
     let property = prompt();
     while (property !== 'y' && property !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
@@ -223,7 +235,7 @@ if (type === 'b') {
     // Livestock
 
     console.log("Do you have livestock or animals that are injured or affected?");
-    console.log("This includes stock, cattle, horses, sheep and domestic pets.")
+    console.log("This includes stock, cattle, horses, sheep and domestic pets.");
     let livestock = prompt();
     while (livestock !== 'y' && livestock !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
@@ -248,7 +260,7 @@ if (type === 'b') {
 
     // What is your current housing situation?
 
-    console.log("What is your current housing situation? Type the appropriate number.")
+    console.log("What is your current housing situation? Type the appropriate number.");
     console.log("1. Renter");
     console.log("2. Owner with mortgage");
     console.log("3. Owner - without mortgage");
@@ -287,7 +299,7 @@ if (type === 'b') {
 
     console.log("Do you have children or dependents?");
     let isPrimaryCarer = prompt();
-    while (isPrimaryCarer !== 'y' && livestock !== 'n') {
+    while (isPrimaryCarer !== 'y' && isPrimaryCarer !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
         isPrimaryCarer = prompt();
     }
@@ -298,14 +310,14 @@ if (type === 'b') {
 
     // How old are you?
 
-    console.log("How old are you? Type the appropriate number.")
-    console.log("Under 16");
-    console.log("16 - 21");
-    console.log("22 - 39");
-    console.log("40 - 66");
-    console.log("67 - 80");
-    console.log("Over 80");
-    let valid = false;
+    console.log("How old are you? Type the appropriate number.");
+    console.log("1. Under 16");
+    console.log("2. 16 - 21");
+    console.log("3. 22 - 39");
+    console.log("4. 40 - 66");
+    console.log("5. 67 - 80");
+    console.log("6. Over 80");
+    valid = false;
     while (!valid) {
         let ageBracket = prompt();
         switch(ageBracket) {
@@ -341,11 +353,11 @@ if (type === 'b') {
     // What is your resident status?
 
     console.log("What is your resident status? Type the appropriate number.");
-    console.log("Please select the option that best represents your residency as at 1 March 2020.")
+    console.log("Please select the option that best represents your residency as at 1 March 2020.");
     console.log("1. Australian citizen, permanent residence visa holder or protected Special Category visa (SCV) holder");
     console.log("2. New Zealand citizen living in Australia (non SCV holder)");
     console.log("3. International citizen living in Australia (non New Zealand)");
-    let valid = false;
+    vvalid = false;
     while (!valid) {
         let housingSituation = prompt();
         switch(housingSituation) {
@@ -385,8 +397,8 @@ if (type === 'b') {
     console.log("1. Student");
     console.log("2. Trainee");
     console.log("3. Apprentice");
-    console.log("4. None of the Above")
-    let valid = false;
+    console.log("4. None of the Above");
+    valid = false;
     while (!valid) {
         let housingSituation = prompt();
         switch(housingSituation) {
@@ -416,11 +428,11 @@ if (type === 'b') {
     console.log("1. Full-time employee");
     console.log("2. Part-time employee");
     console.log("3. Long-term casual employee");
-    console.log("4. Recently stood down")
+    console.log("4. Recently stood down");
     console.log("5. Looking for work");
     console.log("6. Retired or not looking for work");
     console.log("7. None of the above");
-    let valid = false;
+    valid = false;
     while (!valid) {
         let employmentStatus = prompt();
         switch(employmentStatus) {
@@ -473,23 +485,81 @@ if (type === 'b') {
     // How many employees do you currently have?
 
     console.log("How many employees do you currently have? Type the appropriate number.");
+    console.log("1. I'm a sole trader");
+    console.log("2. 1 to 19");
+    console.log("3. 20 to 49");
+    console.log("4. 50 to 249");
+    console.log("5. 250 or More");
+    valid = false;
+    while (!valid) {
+        let numEmployees = prompt();
+        switch(numEmployees) {
+            case "1":
+                data.userAnswers.push("numEmployeesMyselfOnly");
+                valid = true;
+                break;
+            case "2":
+                data.userAnswers.push("numEmployees1to19");
+                valid = true;
+                break;
+            case "3":
+                data.userAnswers.push("numEmployees20to49");
+                valid = true;
+                break;
+            case "4":
+                data.userAnswers.push("numEmployees50to249");
+                valid = true;
+                break;
+            case "5":
+                data.userAnswers.push("numEmployees250OrMore");
+                valid = true;
+                break;
+            default:
+                console.log("That is invalid. Please type '1', '2', '3', '4' or '5'.");
+        }
 
-    // I'm a sole trader
-    // 1 to 19
-    // 20 to 49
-    // 50 to 249
-    // 250 or More
+    }
 
     // How does your current revenue compare to a similar period last year?
 
     console.log("How does your current revenue compare to a similar period last year?");
     console.log("The period can be a month from March 2020 to September 2020 compared to the same month in 2019. Where a quarterly period is chosen, businesses will compare projected turnover for either the June or September 2020 quarters to the same quarter in 2019.");
 
-    // 0-14% reduction
-    // 15-29% reduction
-    // 30-49% reduction
-    // 50% or more reduction
-    // No reduction at the moment
+    console.log("Does any of the below circumstances apply to you?? Type the appropriate number.");
+    console.log("1. 0-14% reduction");
+    console.log("2. 15-29% reduction");
+    console.log("3. 30-49% reduction");
+    console.log("4. 50% or more reduction");
+    console.log("5. No reduction at the moment");
+    valid = false;
+    while (!valid) {
+        let revenueReduction = prompt();
+        switch(revenueReduction) {
+            case "1":
+                data.userAnswers.push("revenueReduction0to14Percent");
+                valid = true;
+                break;
+            case "2":
+                data.userAnswers.push("revenueReduction15to29Percent");
+                valid = true;
+                break;
+            case "3":
+                data.userAnswers.push("revenueReduction30to49Percent");
+                valid = true;
+                break;
+            case "4":
+                data.userAnswers.push("revenueReduction50orMorePercent");
+                valid = true;
+                break;
+            case "5":
+                data.userAnswers.push("revenueReductionNone");
+                valid = true;
+                break;
+            default:
+                console.log("That is invalid. Please type '1', '2', '3', '4' or '5'.");
+        }
+
+    }
 
 
 
@@ -502,9 +572,9 @@ if (type === 'b') {
     console.log("1. In self-isolation or self-quarantine due to health concerns");
     console.log("2. In self-isolation or self-quarantine due to travel");
     console.log("3. National Disability Insurance Scheme (NDIS) participant");
-    console.log("4. Healthcare worker")
+    console.log("4. Healthcare worker");
     console.log("5. None of the above");
-    let valid = false;
+    valid = false;
     while (!valid) {
         let employmentStatus = prompt();
         switch(employmentStatus) {
@@ -539,11 +609,11 @@ if (type === 'b') {
     console.log("1. Income support");
     console.log("2. Support with housing payments");
     console.log("3. Help with food and household items");
-    console.log("4. Help adjusting to a different lifestyle")
+    console.log("4. Help adjusting to a different lifestyle");
     console.log("5. Support for my children or dependents");
     console.log("6. Support for my mental health");
     console.log("7. None of the above");
-    let valid = false;
+    valid = false;
     while (!valid) {
         let employmentStatus = prompt();
         switch(employmentStatus) {
