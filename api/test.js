@@ -35,17 +35,6 @@ const getBushFireResults = async (code) => {
         })
 }
 
-const covidData = {
-    "userAnswers":[
-        "ageBracket16to21",
-        "residentTypeAustralian",
-        "housingSituationRenter",
-        "isTrainee",
-        "employmentStatusFullTime",
-        "selfIsolatingReasonReturnFromTravel",
-        "supportOptionsIncomeSupport"
-    ],"disasterType":"covid"
-};
 
 const sendCovidSurvey = async (json) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/covid/surveyform`;
@@ -253,7 +242,362 @@ if (type === 'b') {
 
 } else if (type === 'c') {
 
-    // sendCovidSurvey(JSON.stringify(data));
+    data.userAnswers = []
+
+    data.disasterType = "covid";
+
+    // What is your current housing situation?
+
+    console.log("What is your current housing situation? Type the appropriate number.")
+    console.log("1. Renter");
+    console.log("2. Owner with mortgage");
+    console.log("3. Owner - without mortgage");
+    console.log("4. Living with family or friends - few expenses");
+    console.log("5. Other");
+    let valid = false;
+    while (!valid) {
+        let housingSituation = prompt();
+        switch(housingSituation) {
+            case "1":
+                data.userAnswers.push("residentTypeAustralian");
+                valid = true;
+                break;
+            case "2":
+                data.userAnswers.push("housingSituationOwnerWithMortgage");
+                valid = true;
+                break;
+            case "3":
+                data.userAnswers.push("housingSituationOwnerWithoutMortgage");
+                valid = true;
+                break;
+            case "4":
+                data.userAnswers.push("housingSituationLivingWithFamilyOrFriendsWithoutExpense");
+                valid = true;
+                break;
+            case "5":
+                data.userAnswers.push("housingSituationOther");
+                valid = true;
+                break;
+            default:
+                console.log("That is invalid. Please type '1', '2', '3', '4' or '5'.");
+        }
+    }
+
+    // Do you have children or dependents?
+
+    console.log("Do you have children or dependents?");
+    let isPrimaryCarer = prompt();
+    while (isPrimaryCarer !== 'y' && livestock !== 'n') {
+        console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
+        isPrimaryCarer = prompt();
+    }
+
+    if (isPrimaryCarer === 'y') {
+        data.userAnswers.push("isPrimaryCarer");
+    }
+
+    // How old are you?
+
+    console.log("How old are you? Type the appropriate number.")
+    console.log("Under 16");
+    console.log("16 - 21");
+    console.log("22 - 39");
+    console.log("40 - 66");
+    console.log("67 - 80");
+    console.log("Over 80");
+    let valid = false;
+    while (!valid) {
+        let ageBracket = prompt();
+        switch(ageBracket) {
+            case "1":
+                data.userAnswers.push("ageBracketUnder16");
+                valid = true;
+                break;
+            case "2":
+                data.userAnswers.push("ageBracket16to21");
+                valid = true;
+                break;
+            case "3":
+                data.userAnswers.push("ageBracket22to39");
+                valid = true;
+                break;
+            case "4":
+                data.userAnswers.push("ageBracket40to66");
+                valid = true;
+                break;
+            case "5":
+                data.userAnswers.push("ageBracket67to80");
+                valid = true;
+                break;
+            case "6":
+                data.userAnswers.push("ageBracketOver80");
+                valid = true;
+                break;
+            default:
+                console.log("That is invalid. Please type '1', '2', '3', '4', '5' or '6'.");
+        }
+    }
+
+    // What is your resident status?
+
+    console.log("What is your resident status? Type the appropriate number.");
+    console.log("Please select the option that best represents your residency as at 1 March 2020.")
+    console.log("1. Australian citizen, permanent residence visa holder or protected Special Category visa (SCV) holder");
+    console.log("2. New Zealand citizen living in Australia (non SCV holder)");
+    console.log("3. International citizen living in Australia (non New Zealand)");
+    let valid = false;
+    while (!valid) {
+        let housingSituation = prompt();
+        switch(housingSituation) {
+            case "1":
+                data.userAnswers.push("residentTypeAustralia");
+                valid = true;
+                break;
+            case "2":
+                data.userAnswers.push("residentTypeNewZealand");
+                valid = true;
+                break;
+            case "3":
+                data.userAnswers.push("residentTypeInternational");
+                valid = true;
+                break;
+            default:
+                console.log("That is invalid. Please type '1', '2' or '3'.");
+        }
+    }
+
+    // Do you identify as Aboriginal or Torres Strait Islander?
+
+    console.log("Do you identify as Aboriginal or Torres Strait Islander?");
+    let doesIdentifyAsIndigenousAustralian = prompt();
+    while (doesIdentifyAsIndigenousAustralian !== 'y' && doesIdentifyAsIndigenousAustralian !== 'n') {
+        console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
+        doesIdentifyAsIndigenousAustralian = prompt();
+    }
+
+    if (doesIdentifyAsIndigenousAustralian === 'y') {
+        data.userAnswers.push("doesIdentifyAsIndigenousAustralian");
+    }
+
+    // Are you a student, trainee or apprentice?
+
+    console.log("Are you a student, trainee or apprentice? Type the appropriate number.");
+    console.log("1. Student");
+    console.log("2. Trainee");
+    console.log("3. Apprentice");
+    console.log("4. None of the Above")
+    let valid = false;
+    while (!valid) {
+        let housingSituation = prompt();
+        switch(housingSituation) {
+            case "1":
+                data.userAnswers.push("isStudent");
+                valid = true;
+                break;
+            case "2":
+                data.userAnswers.push("isTrainee");
+                valid = true;
+                break;
+            case "3":
+                data.userAnswers.push("isApprentice");
+                valid = true;
+                break;
+            case "4":
+                valid = true;
+                break;
+            default:
+                console.log("That is invalid. Please type '1', '2', '3' or '4'.");
+        }
+    }
+
+    // What is your employment status?
+
+    console.log("What is your employment status? Type the appropriate number.");
+    console.log("1. Full-time employee");
+    console.log("2. Part-time employee");
+    console.log("3. Long-term casual employee");
+    console.log("4. Recently stood down")
+    console.log("5. Looking for work");
+    console.log("6. Retired or not looking for work");
+    console.log("7. None of the above");
+    let valid = false;
+    while (!valid) {
+        let employmentStatus = prompt();
+        switch(employmentStatus) {
+            case "1":
+                data.userAnswers.push("employmentStatusFullTime");
+                valid = true;
+                break;
+            case "2":
+                data.userAnswers.push("employmentStatusPartTime");
+                valid = true;
+                break;
+            case "3":
+                data.userAnswers.push("employmentStatusLongTermCasual");
+                valid = true;
+                break;
+            case "4":
+                data.userAnswers.push("employmentStatusRecentlyStoodDown");
+                valid = true;
+                break;
+            case "5":
+                data.userAnswers.push("employmentStatusLookingForWork");
+                valid = true;
+                break;
+            case "6":
+                data.userAnswers.push("employmentStatusRetiredOrNotLookingForWork");
+                valid = true;
+                break;
+            case "7":
+                valid = true;
+                break;
+            default:
+                console.log("That is invalid. Please type '1', '2', '3', '4', '5', '6' or '7'.");
+        }
+
+    }
+
+    // Are you a business owner?
+
+    console.log("Are you a business owner? Type the appropriate number.");
+    let isBusinessOwner = prompt();
+    while (isBusinessOwner !== 'y' && isBusinessOwner !== 'n') {
+        console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
+        isBusinessOwner = prompt();
+    }
+
+    if (isBusinessOwner === 'y') {
+        data.userAnswers.push("isBusinessOwner");
+
+
+    // How many employees do you currently have?
+
+    console.log("How many employees do you currently have? Type the appropriate number.");
+
+    // I'm a sole trader
+    // 1 to 19
+    // 20 to 49
+    // 50 to 249
+    // 250 or More
+
+    // How does your current revenue compare to a similar period last year?
+
+    console.log("How does your current revenue compare to a similar period last year?");
+    console.log("The period can be a month from March 2020 to September 2020 compared to the same month in 2019. Where a quarterly period is chosen, businesses will compare projected turnover for either the June or September 2020 quarters to the same quarter in 2019.");
+
+    // 0-14% reduction
+    // 15-29% reduction
+    // 30-49% reduction
+    // 50% or more reduction
+    // No reduction at the moment
+
+
+
+    }
+    
+
+    // Does any of the below circumstances apply to you?
+
+    console.log("Does any of the below circumstances apply to you?? Type the appropriate number.");
+    console.log("1. In self-isolation or self-quarantine due to health concerns");
+    console.log("2. In self-isolation or self-quarantine due to travel");
+    console.log("3. National Disability Insurance Scheme (NDIS) participant");
+    console.log("4. Healthcare worker")
+    console.log("5. None of the above");
+    let valid = false;
+    while (!valid) {
+        let employmentStatus = prompt();
+        switch(employmentStatus) {
+            case "1":
+                data.userAnswers.push("selfIsolatingReasonExistingHealthConcerns");
+                valid = true;
+                break;
+            case "2":
+                data.userAnswers.push("selfIsolatingReasonReturnFromTravel");
+                valid = true;
+                break;
+            case "3":
+                data.userAnswers.push("selfIsolatingReasonNdisParticipant");
+                valid = true;
+                break;
+            case "4":
+                data.userAnswers.push("selfIsolatingReasonHealthcareWorker");
+                valid = true;
+                break;
+            case "5":
+                valid = true;
+                break;
+            default:
+                console.log("That is invalid. Please type '1', '2', '3', '4' or '5'.");
+        }
+
+    }
+
+    // What support do you need most right now?
+
+    console.log("What support do you need most right now? Type the appropriate number.");
+    console.log("1. Income support");
+    console.log("2. Support with housing payments");
+    console.log("3. Help with food and household items");
+    console.log("4. Help adjusting to a different lifestyle")
+    console.log("5. Support for my children or dependents");
+    console.log("6. Support for my mental health");
+    console.log("7. None of the above");
+    let valid = false;
+    while (!valid) {
+        let employmentStatus = prompt();
+        switch(employmentStatus) {
+            case "1":
+                data.userAnswers.push("supportOptionsIncomeSupport");
+                valid = true;
+                break;
+            case "2":
+                data.userAnswers.push("supportOptionsSupportWithHousingPayments");
+                valid = true;
+                break;
+            case "3":
+                data.userAnswers.push("supportOptionsFoodAndHousehold");
+                valid = true;
+                break;
+            case "4":
+                data.userAnswers.push("supportOptionsLifestyle");
+                valid = true;
+                break;
+            case "5":
+                data.userAnswers.push("supportOptionsChildSupport");
+                valid = true;
+                break;
+            case "6":
+                data.userAnswers.push("supportOptionsMentalHealth");
+                valid = true;
+                break;
+            case "7":
+                valid = true;
+                break;
+            default:
+                console.log("That is invalid. Please type '1', '2', '3', '4', '5', '6' or '7'.");
+        }
+
+    }
+
+    sendCovidSurvey(JSON.stringify(data));
 
 }
 
+
+const covidData = {
+    "userAnswers":[
+        "ageBracket16to21",
+        "residentTypeAustralian",
+        "housingSituationRenter",
+        "isTrainee",
+        "employmentStatusFullTime",
+        "selfIsolatingReasonReturnFromTravel",
+        "supportOptionsIncomeSupport"
+    ],"disasterType":"covid"
+};
+
+// {"userAnswers":["ageBracketUnder16","residentTypeInternational","doesIdentifyAsIndigenousAustralian","isPrimaryCarer","housingSituationRenter","housingSituationOwnerWithMortgage","housingSituationOwnerWithoutMortgage","housingSituationLivingWithFamilyOrFriendsWithoutExpense","housingSituationOther","isStudent","isTrainee","isApprentice","employmentStatusFullTime","employmentStatusPartTime","employmentStatusLongTermCasual","employmentStatusReducedHours","employmentStatusRecentlyStoodDown","employmentStatusLookingForWork","employmentStatusRetiredOrNotLookingForWork","isBusinessOwner","numEmployeesMyselfOnly","revenueReduction15to29Percent","selfIsolatingReasonExistingHealthConcerns","selfIsolatingReasonReturnFromTravel","selfIsolatingReasonNdisParticipant","selfIsolatingReasonHealthcareWorker","supportOptionsLifestyle","supportOptionsMentalHealth"],"disasterType":"covid"}
+
+
+// {"userAnswers":["ageBracketOver80","residentTypeAustralian","housingSituationOther","supportOptionsLifestyle"],"disasterType":"covid"}
