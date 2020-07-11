@@ -1,30 +1,6 @@
 const axios = require('axios');
 const prompt = require('prompt-sync')();
 
-const bushfireData = {
-    "basicAssistance": {
-        "businessOwner":false,
-        "farmerOrPrimaryProducer":false,
-        "propertyOwner":false,
-        "renter":true,
-        "volunteerFirefighterOrSES":false,
-        "noneOfTheAbove":false
-    },
-    "certificate": {
-        "documentReplacement":"true"
-    },
-    "propertyAndVehicle":{
-        "damagedProperty":"false",
-        "registeredVehicle":true,
-        "registeredVessel":true,
-        "noVehicle":false
-    },
-    "livestock":{
-        "livestock":"true"
-    },
-    "disasterType":"bushfire"
-};
-
 const sendBushfireSurvey = async (json) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/bushfire/surveyform`;
     axios.post(url, json, { headers: { 'Content-Type': 'application/json' }})
@@ -48,7 +24,7 @@ const getBushFireResults = async (code) => {
                     service = category.services[s];
                     console.log(`Provider: ${service.provider}$`);
                     console.log(`Initiative: ${service.initiativeName}`);
-                    console.log(service.description.replace(/<.*>/, ''));
+                    console.log(service.description.replace(/<[^<>]*>/, ''));
                     console.log(`Further information: ${service.furtherInformationLink}\n`);
                 }
                 console.log('\n');
@@ -92,10 +68,6 @@ const getCovidResults = async (code) => {
             console.log(error);
         })
 }
-
-// sendBushfireSurvey(JSON.stringify(bushfireData));
-
-// sendCovidSurvey(JSON.stringify(covidData));
 
 
 console.log("Do you need assistance for the bushfires or COVID-19?");
@@ -281,6 +253,7 @@ if (type === 'b') {
 
 } else if (type === 'c') {
 
+    // sendCovidSurvey(JSON.stringify(data));
 
 }
 
