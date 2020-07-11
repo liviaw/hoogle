@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+#centreDiv {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center; 
+}
+
+body {
+  background-image: url('./disaster-background.jpg');
+  background-color: #cccccc;
+ }
