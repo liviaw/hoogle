@@ -8,6 +8,9 @@ function App() {
   return (
     <div className="App">
       <ChatBot
+          headerTitle="Speech Synthesis"
+          speechSynthesis={{ enable: true, lang: 'es' }}
+          recognitionEnable={true} 
           steps={[
             {
               id: 'hello-world',
