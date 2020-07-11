@@ -3,7 +3,6 @@ import { ThemeProvider } from 'styled-components';
 import './App.css';
 import KlueBot from './components/KlueBot.js'
 
-
 const theme = {
   background: '#f5f8fb',
   fontFamily: 'Open Sans',
