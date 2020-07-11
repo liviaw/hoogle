@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import './App.css';
@@ -17,16 +17,19 @@ const theme = {
   userFontColor: '#4a4a4a',
 };
 
-function App() {
-  return (
-    <div className="App">
-      <div id='centreDiv'>
-        <ThemeProvider theme={theme}>
-          <DisasterBot />
-        </ThemeProvider>
+class App extends Component {
+
+  render() {
+    return (
+      <div className="App">
+        <div id='centreDiv'>
+          <ThemeProvider theme={theme}>
+            <DisasterBot />
+          </ThemeProvider>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
