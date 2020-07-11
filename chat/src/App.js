@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import ChatBot from 'react-simple-chatbot';
 
@@ -8,22 +7,23 @@ function App() {
   return (
     <div className="App">
       <ChatBot
-          headerTitle="Speech Synthesis"
-          speechSynthesis={{ enable: true, lang: 'es' }}
-          recognitionEnable={true} 
           steps={[
             {
-              id: 'hello-world',
-              message: 'Hello World!',
-              trigger: 'user1'
+              id: 'welcome',
+              message: 'Welcome to DisasterBot! Do you want bushfire or covid relief?',
+              trigger: 'welcome-user'
             }, {
-              id: 'user1',
+              id: 'welcome-user',
               user: true,
-              trigger: 'next-message'
+              trigger: 'disaster-start'
             }, {
-              id: 'next-message',
-              message: 'hi',
-              end: true
+              id: 'disaster-start',
+              options: [
+                { label: 'bushfire', value: 1, trigger: 'bushfire-start' },
+                { label: 'covid-start', value: 2, trigger: 'covid-start'}
+              ]
+            }, {
+              
             }
           ]}
         />
