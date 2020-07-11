@@ -18,35 +18,27 @@ const theme = {
   headerFontColor: '#fff',
   headerFontSize: '15px',
   botBubbleColor: '#0084FF',
-  botFontColor: '#fff',
-  userBubbleColor: '#fff',
+  botFontColor: '#fefefe',
+  userBubbleColor: '#fefefe',
   userFontColor: '#4a4a4a',
 };
 
 
-///
+
 
 
 class Filled extends Component {
   constructor(props) {
     super(props);
   }
-
-
-
   render() {
     return (
-        <a href="./filled-form.pdf"> Your filled in Form </a>
-      )
-
-    
+        <a href='./filled-form.pdf' download> Your filled in Form </a>
+      )    
   }
 }
 
 
-
-
-//
 
 
 function App() {
