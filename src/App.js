@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import './App.css';
-import DisasterBot from './components/DisasterBot.js'
+import KlueBot from './components/KlueBot.js'
 
 
 const theme = {
@@ -22,7 +22,7 @@ class App extends Component {
       <div className="App">
         <div id='centreDiv'>
           <ThemeProvider theme={theme}>
-            <DisasterBot />
+            <KlueBot />
           </ThemeProvider>
         </div>
       </div>

@@ -25,7 +25,7 @@ const handleSubmit = (files) => {
   console.log(files.map(f => f.meta));
 }
 
-class DisasterBot extends Component {
+class KlueBot extends Component {
 
   render() {
     return (
@@ -138,7 +138,7 @@ const service = (service) => {
 const steps = [
   {
     id: 'welcome',
-    message: 'Welcome to DisasterBot! Do you want bushfire or covid relief?',
+    message: 'Welcome to KlueBot! Do you want bushfire or covid relief?',
     trigger: 'disasterType'
   }, {
     id: 'disasterType',
@@ -359,4 +359,4 @@ const steps = [
   }
 ];
 
-export default DisasterBot;
+export default KlueBot;
