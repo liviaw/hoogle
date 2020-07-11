@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
-
 import './App.css';
 import DisasterBot from './components/DisasterBot.js'
 
@@ -18,7 +17,6 @@ const theme = {
 };
 
 class App extends Component {
-
   render() {
     return (
       <div className="App">
