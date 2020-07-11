@@ -3,13 +3,20 @@ import PropTypes from 'prop-types';
 import ChatBot from 'react-simple-chatbot';
 import axios from 'axios';
 
-class Help extends Component {
+import BobRoss from '../assets/bob-ross.jpg';
+import BotSentinel from '../assets/bot-sentinel.jpg';
+
+class DisasterBot extends Component {
 
   render() {
     return (
       <div className="App">
         <ChatBot
+          headerTitle={'Hoogle Bot'}
           steps={ steps }
+          botAvatar={BotSentinel}
+          userAvatar={BobRoss}
+          width={'100%'}
         />
       </div>
     );
@@ -239,4 +246,4 @@ const steps = [
   }
 ];
 
-export default Help;
+export default DisasterBot;
