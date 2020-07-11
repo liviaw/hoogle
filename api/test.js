@@ -40,18 +40,18 @@ const getBushFireResults = async (code) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/summary?surveyFormId=${code}`;
     axios.get(url)
         .then((response) => {
-            for (let c = 0; c < response.data.availableServices.length; c++) {
-                category = response.data.availableServices[c];
-                console.log("CATEGORY");
-                console.log(category.category)
+                categories = response.data.availableServices
+            for (let c = 0; c < categories.length; c++) {
+                category = categories[c];
+                console.log(`Category: ${category.category}\n`);
                 for (let s = 0; s < category.services.length; s++) {
                     service = category.services[s];
-                    console.log(service.initiativeName);
-                    console.log(service.description);
-                    console.log(service.furtherInformationLink);
-                    console.log(service.provider);
-                    console.log();
+                    console.log(`Provider: ${service.provider}$`);
+                    console.log(`Initiative: ${service.initiativeName}`);
+                    console.log(service.description.replace(/<.*>/, ''));
+                    console.log(`Further information: ${service.furtherInformationLink}\n`);
                 }
+                console.log('\n');
             }
         })
         .catch((error) => {
@@ -132,17 +132,69 @@ if (type === 'b') {
         data.basicAssistance.businessOwner = false;
     }
 
-    data.basicAssistance.businessOwner = false;
-    data.basicAssistance.farmerOrPrimaryProducer = false;
-    data.basicAssistance.propertyOwner = false;
-    data.basicAssistance.renter = true;
-    data.basicAssistance.volunteerFirefighterOrSES = false;
-    data.basicAssistance.noneOfTheAbove = true;
+    data.basicAssistance = {};
+
+    console.log("Have you been affected as a farmer or primary producer?")
+    let farmerOrPrimaryProducer = prompt();
+    while (farmerOrPrimaryProducer !== 'y' && farmerOrPrimaryProducer !== 'n') {
+        console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
+        farmerOrPrimaryProducer = prompt();
+    }
+
+    if (farmerOrPrimaryProducer === 'y') {
+        data.basicAssistance.farmerOrPrimaryProducer = true;
+    } else {
+        data.basicAssistance.farmerOrPrimaryProducer = false;
+    }
+
+    console.log("Have you been affected as a property owner?")
+    let propertyOwner = prompt();
+    while (propertyOwner !== 'y' && propertyOwner !== 'n') {
+        console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
+        propertyOwner = prompt();
+    }
+
+    if (propertyOwner === 'y') {
+        data.basicAssistance.propertyOwner = true;
+    } else {
+        data.basicAssistance.propertyOwner = false;
+    }
+
+    console.log("Have you been affected as a renter?")
+    let renter = prompt();
+    while (renter !== 'y' && renter !== 'n') {
+        console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
+        renter = prompt();
+    }
+
+    if (propertyOwner === 'y') {
+        data.basicAssistance.renter = true;
+    } else {
+        data.basicAssistance.renter = false;
+    }
+
+    console.log("Have you been affected as a Volunteer Firefighter or SES?")
+    let volunteerFirefighterOrSES = prompt();
+    while (volunteerFirefighterOrSES !== 'y' && volunteerFirefighterOrSES !== 'n') {
+        console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
+        volunteerFirefighterOrSES = prompt();
+    }
+
+    if (volunteerFirefighterOrSES === 'y') {
+        data.basicAssistance.volunteerFirefighterOrSES = true;
+    } else {
+        data.basicAssistance.volunteerFirefighterOrSES = false;
+    }
+
+    if (businessOwner === 'n' && farmerOrPrimaryProducer === 'n' && propertyOwner === 'n' && renter === 'n' && volunteerFirefighterOrSES === 'n') {
+        data.basicAssistance.noneOfTheAbove = true;
+    } else {
+        data.basicAssistance.noneOfTheAbove = false;
+    }
 
     // Certificate
 
     console.log("Do you need to replace any documents or licences?");
-    console.log("Type 'y' for Yes or 'n' for No.");
     let certificate = prompt();
     while (certificate !== 'y' && certificate !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
@@ -163,7 +215,6 @@ if (type === 'b') {
 
     console.log("Has your property been impacted or damaged?");
     console.log("This includes houses, buildings, sheds, fencing, business premises and fallen trees.")
-    console.log("Type 'y' for Yes or 'n' for No.");
     let property = prompt();
     while (property !== 'y' && property !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
@@ -177,7 +228,6 @@ if (type === 'b') {
     }
 
     console.log("Do you have any damaged vehicles?");
-    console.log("Type 'y' for Yes or 'n' for No.");
     let vehicle = prompt();
     while (vehicle !== 'y' && vehicle !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
@@ -191,7 +241,6 @@ if (type === 'b') {
     }
 
     console.log("Do you have any damaged vessels?");
-    console.log("Type 'y' for Yes or 'n' for No.");
     let vessel = prompt();
     while (vessel !== 'y' && vessel !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
@@ -214,7 +263,6 @@ if (type === 'b') {
 
     console.log("Do you have livestock or animals that are injured or affected?");
     console.log("This includes stock, cattle, horses, sheep and domestic pets.")
-    console.log("Type 'y' for Yes or 'n' for No.");
     let livestock = prompt();
     while (livestock !== 'y' && livestock !== 'n') {
         console.log("That was not valid. Type 'y' for Yes or 'n' for no.");
