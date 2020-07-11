@@ -3,10 +3,10 @@ const prompt = require('prompt-sync')();
 
 const sendBushfireSurvey = async (json) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/bushfire/surveyform`;
-    axios.post(url, json, { headers: { 'Content-Type': 'application/json' }});
+    axios.post(url, json, { headers: { 'Content-Type': 'application/json' }})
         .then((response) => {
             getBushFireResults(response.data);
-        });
+        })
         .catch((error) => {
             console.log(error);
         });
@@ -14,7 +14,7 @@ const sendBushfireSurvey = async (json) => {
 
 const getBushFireResults = async (code) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/summary?surveyFormId=${code}`;
-    axios.get(url);
+    axios.get(url)
         .then((response) => {
             categories = response.data.availableServices
             for (let c = 0; c < categories.length; c++) {
@@ -22,14 +22,14 @@ const getBushFireResults = async (code) => {
                 console.log(`Category: ${category.category}\n`);
                 for (let s = 0; s < category.services.length; s++) {
                     service = category.services[s];
-                    console.log(`Provider: ${service.provider}$`);
+                    console.log(`Provider: ${service.provider}`);
                     console.log(`Initiative: ${service.initiativeName}`);
-                    console.log(service.description.replace(/<[^<>]*>/, ''));
+                    console.log(service.description.replace(/<[^<>]*>/g, ''));
                     console.log(`Further information: ${service.furtherInformationLink}\n`);
                 }
                 console.log('\n');
             }
-        });
+        })
         .catch((error) => {
             console.log(error);
         });
@@ -38,10 +38,10 @@ const getBushFireResults = async (code) => {
 
 const sendCovidSurvey = async (json) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/covid/surveyform`;
-    axios.post(url, json, { headers: { 'Content-Type': 'application/json' }});
+    axios.post(url, json, { headers: { 'Content-Type': 'application/json' }})
         .then((response) => {
             getCovidResults(response.data);
-        });
+        })
         .catch((error) => {
             console.log(error);
         });
@@ -49,7 +49,7 @@ const sendCovidSurvey = async (json) => {
 
 const getCovidResults = async (code) => {
     const url = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/summary?surveyFormId=${code}&disasterType=covid`;
-    axios.get(url);
+    axios.get(url)
         .then((response) => {
             categories = response.data.availableServices
             for (let c = 0; c < categories.length; c++) {
@@ -57,14 +57,14 @@ const getCovidResults = async (code) => {
                 console.log(`Category: ${category.category}\n`);
                 for (let s = 0; s < category.services.length; s++) {
                     service = category.services[s];
-                    console.log(`Provider: ${service.provider}$`);
+                    console.log(`Provider: ${service.provider}`);
                     console.log(`Initiative: ${service.initiativeName}`);
-                    console.log(service.description.replace(/<[^<>]*>/, ''));
+                    console.log(service.description.replace(/<[^<>]*>/g, ''));
                     console.log(`Further information: ${service.furtherInformationLink}\n`);
                 }
                 console.log('\n');
             }
-        });
+        })
         .catch((error) => {
             console.log(error);
         });
@@ -268,8 +268,8 @@ if (type === 'b') {
     console.log("5. Other");
     let valid = false;
     while (!valid) {
-        let housingSituation = prompt();
-        switch(housingSituation) {
+        let residentType = prompt();
+        switch(residentType) {
             case "1":
                 data.userAnswers.push("residentTypeAustralian");
                 valid = true;
@@ -357,10 +357,10 @@ if (type === 'b') {
     console.log("1. Australian citizen, permanent residence visa holder or protected Special Category visa (SCV) holder");
     console.log("2. New Zealand citizen living in Australia (non SCV holder)");
     console.log("3. International citizen living in Australia (non New Zealand)");
-    vvalid = false;
+    valid = false;
     while (!valid) {
-        let housingSituation = prompt();
-        switch(housingSituation) {
+        let residentType = prompt();
+        switch(residentType) {
             case "1":
                 data.userAnswers.push("residentTypeAustralia");
                 valid = true;
