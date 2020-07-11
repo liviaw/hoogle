@@ -1,46 +1,36 @@
 {
-  "name": "bootbot",
-  "version": "1.0.16",
-  "description": "Facebook Messenger Bot Framework",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha --recursive test/*",
-    "test:watch": "npm test -- --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Charca/bootbot.git"
-  },
-  "keywords": [
-    "messenger",
-    "bot",
-    "chatbot",
-    "chat",
-    "bot",
-    "facebook"
-  ],
-  "author": "Maxi Ferreira <charca@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Charca/bootbot/issues"
-  },
-  "homepage": "https://github.com/Charca/bootbot#readme",
+  "name": "chat",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "axios": "^0.19.2",
-    "body-parser": "^1.15.2",
-    "chat": "^1.0.8",
-    "config": "^1.21.0",
-    "create-react-app": "^3.4.1",
-    "eventemitter3": "^1.2.0",
-    "express": "^4.14.0",
-    "node-fetch": "^1.5.3",
-    "prompt-sync": "^4.2.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
     "react-simple-chatbot": "^0.6.1",
     "styled-components": "^5.1.1"
   },
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^4.1.0",
-    "sinon": "^1.17.4"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
