@@ -31,7 +31,9 @@ class KlueBot extends Component {
     return (
       <div className="App">
         <ChatBot
-          headerTitle={'Hoogle Bot'}
+          headerTitle={'KlueBot'}
+          speechSynthesis={{ enable: true, lang: 'en' }}
+          recognitionEnable={true}
           steps={ steps }
           botAvatar={BotSentinel}
           userAvatar={BobRoss}
@@ -45,11 +47,11 @@ class KlueBot extends Component {
 const steps = [
   {
     id: 'welcome',
-    message: 'Hello! My name is Kluebot! What can I help you with? :)',
+    message: 'Hello! My name is Kluebot! What can I help you with?',
     trigger: 'disasterType'
   }, {
     id: 'welcomeAgain',
-    message: 'What else can Kluebot help you with? :)',
+    message: 'What else can Kluebot help you with?',
     trigger: 'disasterType'
   }, {
     id: 'disasterType',
@@ -60,7 +62,7 @@ const steps = [
     ]
   }, {
     id: 'bushfire',
-    message: 'I will just ask a few questions. At the end, I will send you everything I know to help you :)',
+    message: 'I will just ask a few questions. At the end, I will send you everything I know to help you',
     trigger: 'businessOwnerMessage'
   }, {
     id: 'businessOwnerMessage',

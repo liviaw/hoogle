@@ -25,7 +25,7 @@ class Bushfire extends Component {
         propertyOwner: propertyOwner.value,
         renter: renter.value,
         volunteerFirefighterOrSES: volunteerFirefighterOrSES.value,
-        noneOfTheAbove: businessOwner.value || farmerOrPrimaryProducer.value || propertyOwner.value || renter.value || volunteerFirefighterOrSES.value
+        noneOfTheAbove: businessOwner.value === 'true' || farmerOrPrimaryProducer.value === 'true' || propertyOwner.value === 'true' || renter.value === 'true' || volunteerFirefighterOrSES.value === 'true'
       },
       documentReplacement: {
         documentReplacement: documentReplacement.value
@@ -34,7 +34,7 @@ class Bushfire extends Component {
         damagedProperty: damagedProperty.value,
         registeredVehicle: registeredVehicle.value,
         registeredVessel: registeredVessel.value,
-        noVehicle: damagedProperty.value || registeredVehicle.value || registeredVessel.value
+        noVehicle: damagedProperty.value === 'true' || registeredVehicle.value === 'true' || registeredVessel.value === 'true'
       },
       livestock: {
         livestock: livestock.value
@@ -61,7 +61,7 @@ class Bushfire extends Component {
   render() {
     return (
       <div className="Bushfire">
-        { this.state.content ? this.state.content.map(category) : "Loading..." }
+        { this.state.content.map(category) }
       </div>
     );
   }

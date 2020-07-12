@@ -23,7 +23,7 @@ class Covid extends Component {
 
     json.userAnswers.push(housingSituation.value);
 
-    if (isPrimaryCarer.value) {
+    if (isPrimaryCarer.value === 'true') {
       json.userAnswers.push('isPrimaryCarer');
     }
 
@@ -31,19 +31,19 @@ class Covid extends Component {
 
     json.userAnswers.push(residentType.value);
 
-    if (doesIdentifyAsIndigenousAustralian.value) {
+    if (doesIdentifyAsIndigenousAustralian.value === 'true') {
       json.userAnswers.push('doesIdentifyAsIndigenousAustralian');
     }
 
-    if (!education.value) {
+    if (education.value !== 'false') {
       json.userAnswers.push(education.value);
     }
 
-    if (!employmentStatus.value) {
+    if (employmentStatus.value !== 'false') {
       json.userAnswers.push(employmentStatus.value);
     }
 
-    if (isBusinessOwner.value) {
+    if (isBusinessOwner.value === 'true') {
       json.userAnswers.push('isBusinessOwner');
 
       json.userAnswers.push(numEmployees.value);
@@ -52,26 +52,23 @@ class Covid extends Component {
 
     }
 
-    if (!selfIsolating.value) {
+    if (selfIsolating.value !== 'false') {
       json.userAnswers.push(selfIsolating.value);
     }
 
-    if (!supportOptions.value) {
+    if (supportOptions.value !== 'false') {
       json.userAnswers.push(supportOptions.value);
     }
 
 
 
     const firstUrl = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/covid/surveyform`;
-    console.log(json)
 
     try {
       const firstData = await axios.post(firstUrl, json, { headers: { 'Content-Type': 'application/json' }});
-      console.log(firstData)
       const param = firstData.data;
       const secondUrl = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/summary?surveyFormId=${param}&disasterType=covid`;
       const secondData = await axios.get(secondUrl);
-      console.log(secondData);
       const data = secondData.data.availableServices;
       this.setState({
         content: data
@@ -85,7 +82,7 @@ class Covid extends Component {
   render() {
     return (
       <div className="Covid">
-        { this.state.content ? this.state.content.map(category) : "Loading..." }
+        { this.state.content.map(category) }
       </div>
     );
   }
