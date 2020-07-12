@@ -38,7 +38,6 @@ class KlueBot extends Component {
           steps={ steps }
           botAvatar={BotSentinel}
           userAvatar={BobRoss}
-          width={ '600px' }
         />
       </div>
     );
