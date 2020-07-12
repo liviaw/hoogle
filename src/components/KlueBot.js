@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import ChatBot from 'react-simple-chatbot';
 import Dropzone from 'react-dropzone-uploader'
-import axios from 'axios';
 
 import Filled from './Filled.js'
 import BobRoss from '../assets/bob-ross.jpg';
 import BotSentinel from '../assets/bot-sentinel.jpg';
 
+import Bushfire from './Bushfire.js'
 import Charity from './Charity.js';
 import CharityInfo from './CharityInfo.js';
 
@@ -42,103 +41,14 @@ class KlueBot extends Component {
   }
 }
 
-class Bushfire extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      content: [],
-    }
-
-  }
-
-  async componentDidMount() {
-    const { steps } = this.props;
-    const { businessOwner, farmerOrPrimaryProducer, propertyOwner, renter, volunteerFirefighterOrSES, documentReplacement, damagedProperty, registeredVehicle, registeredVessel, livestock } = steps;
-
-    const json = {
-      disasterType: 'bushfire',
-      basicAssistance: {
-        businessOwner: businessOwner.value,
-        farmerOrPrimaryProducer: farmerOrPrimaryProducer.value,
-        propertyOwner: propertyOwner.value,
-        renter: renter.value,
-        volunteerFirefighterOrSES: volunteerFirefighterOrSES.value,
-        noneOfTheAbove: businessOwner.value || farmerOrPrimaryProducer.value || propertyOwner.value || renter.value || volunteerFirefighterOrSES.value
-      },
-      documentReplacement: {
-        documentReplacement: documentReplacement.value
-      },
-      propertyAndVehicle: {
-        damagedProperty: damagedProperty.value,
-        registeredVehicle: registeredVehicle.value,
-        registeredVessel: registeredVessel.value,
-        noVehicle: damagedProperty.value || registeredVehicle.value || registeredVessel.value
-      },
-      livestock: {
-        livestock: livestock.value
-      }
-    };
-
-    const firstUrl = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/bushfire/surveyform`;
-
-    try {
-      const firstData = await axios.post(firstUrl, json, { headers: { 'Content-Type': 'application/json' }});
-      const param = firstData.data;
-      const secondUrl = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/summary?surveyFormId=${param}`;
-      const secondData = await axios.get(secondUrl);
-      console.log(secondData);
-      const data = secondData.data.availableServices;
-      this.setState({
-        content: data
-      })
-    } catch (e) {
-      console.log(e);
-    }
-
-  }
-
-  render() {
-    return (
-      <div className="Bushfire">
-        { this.state.content ? this.state.content.map(category) : "Loading..." }
-      </div>
-    );
-  }
-}
-
-Bushfire.propTypes = {
-  steps: PropTypes.object
-};
-
-Bushfire.defaultProps = {
-  steps: undefined
-};
-
-const category = (category) => {
-  return (
-    <div className="category" key={ category.rank }>
-      <h2>Category: { category.category }</h2>
-      { category.services.map(service) }
-    </div>
-  )
-}
-
-const service = (service) => {
-  return (
-    <div className="service" key={ service.serviceOfferingId }>
-      <h3>Provider: { service.provider }</h3>
-      <p>Initiative: { service.initiativeName }</p>
-      <p>Description: { service.description.replace(/<[^<>]*>/g, '') }</p>
-      <p>Find more information <a href={ service.furtherInformationLink }>here</a>.</p>
-    </div>
-  );
-}
-
 const steps = [
   {
     id: 'welcome',
-    message: 'Welcome to KlueBot! Do you want bushfire or covid relief?',
+    message: 'Hello! My name is Kluebot! What can I help you with? :)',
+    trigger: 'disasterType'
+  }, {
+    id: 'welcomeAgain':
+    message: 'What else can Kluebot help you with? :)',
     trigger: 'disasterType'
   }, {
     id: 'disasterType',
@@ -266,11 +176,20 @@ const steps = [
   }, {
     id: 'covid-options',
     options: [
-      { value: 1, label: 'Fill in Form', trigger: 'covid-form' },
-      { value: 2, label: 'Translate Form to a different language', trigger: 'translate-covid-form' },
-      { value: 3, label: 'Information', trigger: 'covid-info' }
+      { value: 1, label: 'Support', trigger: 'covidSupport' },
+      { value: 2, label: 'Fill in Form', trigger: 'covid-form' },
+      { value: 3, label: 'Translate Form to a different language', trigger: 'translate-covid-form' },
+      { value: 4, label: 'Information', trigger: 'covid-info' }
     ]
-  }, { 
+  }, {
+    id: 'covidSupport',
+    message: 'I will just ask a few questions. At the end, I will send you everything I know to help you :)',
+    trigger: 'housingSituationQuestion'
+  }, {
+    id: 'housingSituationQuestion',
+    message: 'NOT IMPLEMENTED',
+    end: true
+  }, {
     id: 'translate-covid-form',
     component: <Dropzone
       getUploadParams={getUploadParams}

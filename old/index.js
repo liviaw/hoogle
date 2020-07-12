@@ -268,10 +268,10 @@ if (type === 'b') {
     console.log("5. Other");
     let valid = false;
     while (!valid) {
-        let residentType = prompt();
-        switch(residentType) {
+        let housingSituation = prompt();
+        switch(housingSituation) {
             case "1":
-                data.userAnswers.push("residentTypeAustralian");
+                data.userAnswers.push("housingSituationRenter");
                 valid = true;
                 break;
             case "2":
@@ -400,8 +400,8 @@ if (type === 'b') {
     console.log("4. None of the Above");
     valid = false;
     while (!valid) {
-        let housingSituation = prompt();
-        switch(housingSituation) {
+        let education = prompt();
+        switch(education) {
             case "1":
                 data.userAnswers.push("isStudent");
                 valid = true;
@@ -576,8 +576,8 @@ if (type === 'b') {
     console.log("5. None of the above");
     valid = false;
     while (!valid) {
-        let employmentStatus = prompt();
-        switch(employmentStatus) {
+        let healthStatus = prompt();
+        switch(healthStatus) {
             case "1":
                 data.userAnswers.push("selfIsolatingReasonExistingHealthConcerns");
                 valid = true;
@@ -615,8 +615,8 @@ if (type === 'b') {
     console.log("7. None of the above");
     valid = false;
     while (!valid) {
-        let employmentStatus = prompt();
-        switch(employmentStatus) {
+        let supportOptions = prompt();
+        switch(supportOptions) {
             case "1":
                 data.userAnswers.push("supportOptionsIncomeSupport");
                 valid = true;
