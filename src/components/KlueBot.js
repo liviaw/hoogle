@@ -7,12 +7,13 @@ import axios from 'axios';
 import Filled from './Filled.js'
 import BobRoss from '../assets/bob-ross.jpg';
 import BotSentinel from '../assets/bot-sentinel.jpg';
+import StyledDropzone from './StyledDropzone.js';
 
 import Charity from './Charity.js';
 import CharityInfo from './CharityInfo.js';
 
 const getUploadParams = ({ meta }) => {
-  return { url: 'https://httpbin.org/post' };
+  return { url: 'https://pdf2doc.com/' };
 }
   
 // called every time a file's `status` changes
@@ -272,13 +273,8 @@ const steps = [
     ]
   }, { 
     id: 'translate-covid-form',
-    component: <Dropzone
-      getUploadParams={getUploadParams}
-      onChangeStatus={handleChangeStatus}
-      onSubmit={handleSubmit}
-      accept="image/*,audio/*,video/*"
-    />,
-    end: true
+    component: <StyledDropzone />,
+    trigger: 'covid-form-finance'
   }, {
     id: 'covid-info',
     message: 'Here are the info about COVID-19?',
