@@ -16,12 +16,6 @@ class Filled extends Component {
     return (
     	<div>
     	 <a href="./filled-form.pdf" download> Your filled in Form </a>
-    	<Document
-          file="somefile.pdf"
-          onLoadSuccess={this.onDocumentLoadSuccess}
-        >
-          <Page pageNumber={pageNumber} />
-        </Document>
      
       </div>
     );
