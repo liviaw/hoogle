@@ -33,12 +33,12 @@ class KlueBot extends Component {
       <div className="App">
         <ChatBot
           headerTitle={'KlueBot'}
+          recognitionEnable={ true }
           speechSynthesis={{ enable: true, lang: 'en' }}
-          recognitionEnable={true}
           steps={ steps }
           botAvatar={BotSentinel}
           userAvatar={BobRoss}
-          width={'100%'}
+          width={ '600px' }
         />
       </div>
     );
