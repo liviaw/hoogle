@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1506822d.chunk.css",
+    "main.js": "/static/js/main.6bdffdef.chunk.js",
+    "main.js.map": "/static/js/main.6bdffdef.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.7aeb85a8.js",
+    "runtime-main.js.map": "/static/js/runtime-main.7aeb85a8.js.map",
+    "static/js/2.146396aa.chunk.js": "/static/js/2.146396aa.chunk.js",
+    "static/js/2.146396aa.chunk.js.map": "/static/js/2.146396aa.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.64f9e8c413bb7d4769efffe5e972f858.js": "/precache-manifest.64f9e8c413bb7d4769efffe5e972f858.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.1506822d.chunk.css.map": "/static/css/main.1506822d.chunk.css.map",
+    "static/js/2.146396aa.chunk.js.LICENSE.txt": "/static/js/2.146396aa.chunk.js.LICENSE.txt",
+    "static/media/bob-ross.jpg": "/static/media/bob-ross.3baa4bfc.jpg",
+    "static/media/bot-sentinel.jpg": "/static/media/bot-sentinel.7971d029.jpg",
+    "static/media/App.css": "/static/media/disaster-background.dd9b28c5.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7aeb85a8.js",
+    "static/js/2.146396aa.chunk.js",
+    "static/css/main.1506822d.chunk.css",
+    "static/js/main.6bdffdef.chunk.js"
+  ]
+}
