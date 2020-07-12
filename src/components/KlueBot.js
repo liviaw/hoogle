@@ -192,7 +192,6 @@ const steps = [
     end: true
   }, {
     id: 'translate-covid-form',
-
     component: <StyledDropzone />,
     trigger: 'covid-form-finance'
 
