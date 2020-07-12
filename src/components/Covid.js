@@ -109,3 +109,5 @@ const service = (service) => {
     </div>
   );
 }
+
+export default Covid;

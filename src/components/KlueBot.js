@@ -47,7 +47,7 @@ const steps = [
     message: 'Hello! My name is Kluebot! What can I help you with? :)',
     trigger: 'disasterType'
   }, {
-    id: 'welcomeAgain':
+    id: 'welcomeAgain',
     message: 'What else can Kluebot help you with? :)',
     trigger: 'disasterType'
   }, {
@@ -168,7 +168,7 @@ const steps = [
   }, {
     id: 'bushfireComponent',
     component: <Bushfire />,
-    end: true
+    trigger: 'welcomeAgain'
   }, {
     id: 'covid',
     message: "What form of help do you need?",
@@ -197,7 +197,7 @@ const steps = [
       onSubmit={handleSubmit}
       accept="image/*,audio/*,video/*"
     />,
-    end: true
+    trigger: 'welcomeAgain'
   }, {
     id: 'covid-info',
     message: 'Here are the info about COVID-19?',
@@ -248,7 +248,7 @@ const steps = [
   }, {
     id:'give-filled-form',
     component: <Filled />,
-    end: true
+    trigger: 'welcomeAgain'
   }, {
     id: 'charity-search',
     message: 'Is there a current disaster or charity you wish to help in particular?',
@@ -265,7 +265,7 @@ const steps = [
     id: '3',
     component: <Charity />,
     waitAction: true,
-    trigger: 'welcome'
+    trigger: 'welcomeAgain'
   }, {
     id: 'charity-prompt',
     message: 'Here is some more information about {previousValue}',
@@ -274,7 +274,7 @@ const steps = [
     id: 'charity-info',
     component: <CharityInfo />,
     waitAction: true,
-    trigger: 'welcome'
+    trigger: 'welcomeAgain'
   }
 ];
 

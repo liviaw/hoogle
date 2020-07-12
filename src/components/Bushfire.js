@@ -95,3 +95,5 @@ const service = (service) => {
     </div>
   );
 }
+
+export default Bushfire;
