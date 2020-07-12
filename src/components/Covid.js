@@ -14,58 +14,60 @@ class Covid extends Component {
 
   async componentDidMount() {
     const { steps } = this.props;
-    const { housingSituation, isPrimaryCarer, isPrimaryCarer, ageBracket, residentType, doesIdentifyAsIndigenousAustralian, education, employmentStatus, isBusinessOwner, numEmployees, revenueReduction, selfIsolating, supportOptions } = steps;
+    const { housingSituation, isPrimaryCarer, ageBracket, residentType, doesIdentifyAsIndigenousAustralian, education, employmentStatus, isBusinessOwner, numEmployees, revenueReduction, selfIsolating, supportOptions } = steps;
 
     const json = {
       disasterType: 'covid',
       userAnswers: []
     };
 
-    json.userAnswers.push(housingSituation);
+    json.userAnswers.push(housingSituation.value);
 
-    if (isPrimaryCarer) {
+    if (isPrimaryCarer.value) {
       json.userAnswers.push('isPrimaryCarer');
     }
 
-    json.userAnswers.push(ageBracket);
+    json.userAnswers.push(ageBracket.value);
 
-    json.userAnswers.push(residentType);
+    json.userAnswers.push(residentType.value);
 
-    if (doesIdentifyAsIndigenousAustralian) {
+    if (doesIdentifyAsIndigenousAustralian.value) {
       json.userAnswers.push('doesIdentifyAsIndigenousAustralian');
     }
 
-    if (!education) {
-      json.userAnswers.push(education);
+    if (!education.value) {
+      json.userAnswers.push(education.value);
     }
 
-    if (!employmentStatus) {
-      json.userAnswers.push(employmentStatus);
+    if (!employmentStatus.value) {
+      json.userAnswers.push(employmentStatus.value);
     }
-    
-    if (isBusinessOwner) {
+
+    if (isBusinessOwner.value) {
       json.userAnswers.push('isBusinessOwner');
 
-      json.push(numEmployees);
+      json.userAnswers.push(numEmployees.value);
 
-      json.push(revenueReduction);
+      json.userAnswers.push(revenueReduction.value);
 
     }
 
-    if (!selfIsolating) {
-      json.userAnswers.push(selfIsolating);
+    if (!selfIsolating.value) {
+      json.userAnswers.push(selfIsolating.value);
     }
 
-    if (!supportOptions) {
-      json.userAnswers.push(supportOptions);
+    if (!supportOptions.value) {
+      json.userAnswers.push(supportOptions.value);
     }
 
 
 
     const firstUrl = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/covid/surveyform`;
+    console.log(json)
 
     try {
       const firstData = await axios.post(firstUrl, json, { headers: { 'Content-Type': 'application/json' }});
+      console.log(firstData)
       const param = firstData.data;
       const secondUrl = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/summary?surveyFormId=${param}&disasterType=covid`;
       const secondData = await axios.get(secondUrl);

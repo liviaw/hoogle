@@ -48,7 +48,6 @@ class Bushfire extends Component {
       const param = firstData.data;
       const secondUrl = `https://api.g.service.nsw.gov.au/biz/drs/v1/drs/api/summary?surveyFormId=${param}`;
       const secondData = await axios.get(secondUrl);
-      console.log(secondData);
       const data = secondData.data.availableServices;
       this.setState({
         content: data

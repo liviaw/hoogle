@@ -7,6 +7,7 @@ import BobRoss from '../assets/bob-ross.jpg';
 import BotSentinel from '../assets/bot-sentinel.jpg';
 
 import Bushfire from './Bushfire.js'
+import Covid from './Covid.js'
 import Charity from './Charity.js';
 import CharityInfo from './CharityInfo.js';
 
@@ -184,22 +185,22 @@ const steps = [
   }, {
     id: 'covidSupport',
     message: 'I will just ask a few questions. At the end, I will send you everything I know to help you :)',
-    trigger: 'housingSituationQuestionMessage'
-  }, {
-    id: 'housingSituationQuestionMessage',
-    message: 'What is your current housing situation?',
     trigger: 'housingSituationQuestion'
   }, {
     id: 'housingSituationQuestion',
+    message: 'What is your current housing situation?',
+    trigger: 'housingSituation'
+  }, {
+    id: 'housingSituation',
     options: [
-      { value: 'housingSituationRenter', label: 'Renter', trigger: 'isPrimaryCarerMessage' },
-      { value: 'housingSituationOwnerWithMortgage', label: 'Owner with mortgage', trigger: 'isPrimaryCarerMessage' },
-      { value: 'housingSituationOwnerWithoutMortgage', label: 'Owner - without mortgage', trigger: 'isPrimaryCarerMessage' },
-      { value: 'housingSituationLivingWithFamilyOrFriendsWithoutExpense', label: 'Living with family or friends - few expenses', trigger: 'isPrimaryCarerMessage' },
-      { value: 'housingSituationOther', label: 'Other', trigger: 'isPrimaryCarerMessage' }
+      { value: 'housingSituationRenter', label: 'Renter', trigger: 'isPrimaryCarerQuestion' },
+      { value: 'housingSituationOwnerWithMortgage', label: 'Owner with mortgage', trigger: 'isPrimaryCarerQuestion' },
+      { value: 'housingSituationOwnerWithoutMortgage', label: 'Owner - without mortgage', trigger: 'isPrimaryCarerQuestion' },
+      { value: 'housingSituationLivingWithFamilyOrFriendsWithoutExpense', label: 'Living with family or friends - few expenses', trigger: 'isPrimaryCarerQuestion' },
+      { value: 'housingSituationOther', label: 'Other', trigger: 'isPrimaryCarerQuestion' }
     ]
   }, {
-    id: 'isPrimaryCarerMessage',
+    id: 'isPrimaryCarerQuestion',
     message: 'Do you have children or dependents?',
     trigger: 'isPrimaryCarer'
   }, {
@@ -288,11 +289,11 @@ const steps = [
   }, {
     id: 'numEmployees',
     options: [
-      { value: 'numEmployeesMyselfOnly', label: "I'm a sole trader", trigger: '' },
-      { value: 'numEmployees1to19', label: '1 to 19', trigger: '' },
-      { value: 'numEmployees20to49', label: '20 to 49', trigger: '' },
-      { value: 'numEmployees50to249', label: '50 to 249', trigger: '' },
-      { value: 'numEmployees250OrMore', label: '250 or More', trigger: '' }
+      { value: 'numEmployeesMyselfOnly', label: "I'm a sole trader", trigger: 'revenueReductionQuestion' },
+      { value: 'numEmployees1to19', label: '1 to 19', trigger: 'revenueReductionQuestion' },
+      { value: 'numEmployees20to49', label: '20 to 49', trigger: 'revenueReductionQuestion' },
+      { value: 'numEmployees50to249', label: '50 to 249', trigger: 'revenueReductionQuestion' },
+      { value: 'numEmployees250OrMore', label: '250 or More', trigger: 'revenueReductionQuestion' }
     ]
   }, {
     id: 'revenueReductionQuestion',
