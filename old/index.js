@@ -272,7 +272,7 @@ if (type === 'b') {
         switch(housingSituation) {
             case "1":
                 data.userAnswers.push("housingSituationRenter");
-                valid = true;
+                valid = tRenterrue;
                 break;
             case "2":
                 data.userAnswers.push("housingSituationOwnerWithMortgage");
@@ -568,7 +568,7 @@ if (type === 'b') {
 
     // Does any of the below circumstances apply to you?
 
-    console.log("Does any of the below circumstances apply to you?? Type the appropriate number.");
+    console.log("Does any of the below circumstances apply to you? Type the appropriate number.");
     console.log("1. In self-isolation or self-quarantine due to health concerns");
     console.log("2. In self-isolation or self-quarantine due to travel");
     console.log("3. National Disability Insurance Scheme (NDIS) participant");

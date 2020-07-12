@@ -14,7 +14,7 @@ class Covid extends Component {
 
   async componentDidMount() {
     const { steps } = this.props;
-    const { housingSituation, isPrimaryCarer, isPrimaryCarer, ageBracket, residentType, doesIdentifyAsIndigenousAustralian, education, employmentStatus, isBusinessOwner, numEmployees, revenueReduction, healthStatus, supportOptions } = steps;
+    const { housingSituation, isPrimaryCarer, isPrimaryCarer, ageBracket, residentType, doesIdentifyAsIndigenousAustralian, education, employmentStatus, isBusinessOwner, numEmployees, revenueReduction, selfIsolating, supportOptions } = steps;
 
     const json = {
       disasterType: 'covid',
@@ -35,10 +35,14 @@ class Covid extends Component {
       json.userAnswers.push('doesIdentifyAsIndigenousAustralian');
     }
 
-    json.userAnswers.push(education);
+    if (!education) {
+      json.userAnswers.push(education);
+    }
 
-    json.userAnswers.push(employmentStatus);
-
+    if (!employmentStatus) {
+      json.userAnswers.push(employmentStatus);
+    }
+    
     if (isBusinessOwner) {
       json.userAnswers.push('isBusinessOwner');
 
@@ -48,10 +52,13 @@ class Covid extends Component {
 
     }
 
-    json.userAnswers.push(healthStatus);
+    if (!selfIsolating) {
+      json.userAnswers.push(selfIsolating);
+    }
 
-    json.userAnswers.push(supportOptions);
-
+    if (!supportOptions) {
+      json.userAnswers.push(supportOptions);
+    }
 
 
 

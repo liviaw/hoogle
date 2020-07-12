@@ -184,11 +184,165 @@ const steps = [
   }, {
     id: 'covidSupport',
     message: 'I will just ask a few questions. At the end, I will send you everything I know to help you :)',
+    trigger: 'housingSituationQuestionMessage'
+  }, {
+    id: 'housingSituationQuestionMessage',
+    message: 'What is your current housing situation?',
     trigger: 'housingSituationQuestion'
   }, {
     id: 'housingSituationQuestion',
-    message: 'NOT IMPLEMENTED',
-    end: true
+    options: [
+      { value: 'housingSituationRenter', label: 'Renter', trigger: 'isPrimaryCarerMessage' },
+      { value: 'housingSituationOwnerWithMortgage', label: 'Owner with mortgage', trigger: 'isPrimaryCarerMessage' },
+      { value: 'housingSituationOwnerWithoutMortgage', label: 'Owner - without mortgage', trigger: 'isPrimaryCarerMessage' },
+      { value: 'housingSituationLivingWithFamilyOrFriendsWithoutExpense', label: 'Living with family or friends - few expenses', trigger: 'isPrimaryCarerMessage' },
+      { value: 'housingSituationOther', label: 'Other', trigger: 'isPrimaryCarerMessage' }
+    ]
+  }, {
+    id: 'isPrimaryCarerMessage',
+    message: 'Do you have children or dependents?',
+    trigger: 'isPrimaryCarer'
+  }, {
+    id: 'isPrimaryCarer',
+    options: [
+      { value: 'true', label: 'Yes', trigger: 'ageBracketQuestion' },
+      { value: 'false', label: 'No', trigger: 'ageBracketQuestion' }
+    ]
+  }, {
+    id: 'ageBracketQuestion',
+    message: 'How old are you?',
+    trigger: 'ageBracket'
+  }, {
+    id: 'ageBracket',
+    options: [
+      { value: 'ageBracketUnder16', label: 'Under 16', trigger: 'residentTypeQuestion' },
+      { value: 'ageBracket16to21', label: '16 - 21', trigger: 'residentTypeQuestion' },
+      { value: 'ageBracket22to39', label: '22 - 39', trigger: 'residentTypeQuestion' },
+      { value: 'ageBracket40to66', label: '40 - 66', trigger: 'residentTypeQuestion' },
+      { value: 'ageBracket67to80', label: '67 - 80', trigger: 'residentTypeQuestion' },
+      { value: 'ageBracketOver80', label: 'Over 80', trigger: 'residentTypeQuestion' }
+    ]
+  }, {
+    id: 'residentTypeQuestion',
+    message: 'What is your resident status? Please select the option that best represents your residency as at 1 March 2020.',
+    trigger: 'residentType'
+  }, {
+    id: 'residentType', 
+    options: [
+      { value: 'residentTypeAustralia', label: 'Australian citizen, permanent residence visa holder or protected Special Category visa (SCV) holder', trigger: 'doesIdentifyAsIndigenousAustralianQuestion' },
+      { value: 'residentTypeNewZealand', label: 'New Zealand citizen living in Australia (non SCV holder)', trigger: 'doesIdentifyAsIndigenousAustralianQuestion' },
+      { value: 'residentTypeInternational', label: 'International citizen living in Australia (non New Zealand)', trigger: 'doesIdentifyAsIndigenousAustralianQuestion' }
+    ]
+  }, {
+    id: 'doesIdentifyAsIndigenousAustralianQuestion',
+    message: 'Do you identify as Aboriginal or Torres Strait Islander?',
+    trigger: 'doesIdentifyAsIndigenousAustralian'
+  }, {
+    id: 'doesIdentifyAsIndigenousAustralian',
+    options: [
+      { value: 'true', label: 'Yes', trigger: 'educationQuestion' },
+      { value: 'false', label: 'No', trigger: 'educationQuestion' }
+    ]
+  }, {
+    id: 'educationQuestion',
+    message: 'Are you a student, trainee or apprentice?',
+    trigger: 'education'
+  }, {
+    id: 'education',
+    options: [
+      { value: 'isStudent', label: 'Student', trigger: 'employmentStatusQuestion' },
+      { value: 'isTrainee', label: 'Trainee', trigger: 'employmentStatusQuestion' },
+      { value: 'isApprentice', label: 'Apprentice', trigger: 'employmentStatusQuestion' }, {
+        value: 'false', label: 'None of the above', trigger: 'employmentStatusQuestion'
+      }
+    ]
+  }, {
+    id: 'employmentStatusQuestion',
+    message: 'What is your employment status?',
+    trigger: 'employmentStatus'
+  }, {
+    id: 'employmentStatus',
+    options: [
+      { value: 'employmentStatusFullTime', label: 'Full-time employee', trigger: 'isBusinessOwnerQuestion' },
+      { value: 'employmentStatusPartTime', label: 'Part-time employee', trigger: 'isBusinessOwnerQuestion' },
+      { value: 'employmentStatusLongTermCasual', label: 'Long-term casual employee', trigger: 'isBusinessOwnerQuestion' },
+      { value: 'employmentStatusRecentlyStoodDown', label: 'Recently stood down', trigger: 'isBusinessOwnerQuestion' },
+      { value: 'employmentStatusLookingForWork', label: 'Looking for work', trigger: 'isBusinessOwnerQuestion' },
+      { value: 'employmentStatusRetiredOrNotLookingForWork', label: 'Retired or not looking for work', trigger: 'isBusinessOwnerQuestion' },
+      { value: 'false', label: 'None of the above', trigger: 'isBusinessOwnerQuestion' }
+    ]
+  }, {
+    id: 'isBusinessOwnerQuestion',
+    message: 'Are you a business owner?',
+    trigger: 'isBusinessOwner'
+  }, {
+    id: 'isBusinessOwner',
+    options: [
+      { value: 'true', label: 'Yes', trigger: 'numEmployeesQuestion' },
+      { value: 'false', label: 'No', trigger: 'selfIsolatingQuestion' }
+    ]
+  }, {
+    id: 'numEmployeesQuestion',
+    message: 'How many employees do you currently have?',
+    trigger: 'numEmployees'
+  }, {
+    id: 'numEmployees',
+    options: [
+      { value: 'numEmployeesMyselfOnly', label: "I'm a sole trader", trigger: '' },
+      { value: 'numEmployees1to19', label: '1 to 19', trigger: '' },
+      { value: 'numEmployees20to49', label: '20 to 49', trigger: '' },
+      { value: 'numEmployees50to249', label: '50 to 249', trigger: '' },
+      { value: 'numEmployees250OrMore', label: '250 or More', trigger: '' }
+    ]
+  }, {
+    id: 'revenueReductionQuestion',
+    message: 'How does your current revenue compare to a similar period last year? The period can be a month from March 2020 to September 2020 compared to the same month in 2019. Where a quarterly period is chosen, businesses will compare projected turnover for either the June or September 2020 quarters to the same quarter in 2019.',
+    trigger: 'revenueReduction'
+  }, {
+    id: 'revenueReduction',
+    options: [
+      { value: 'revenueReductionNone', label: 'No reduction at the moment', trigger: 'selfIsolatingQuestion' },
+      { value: 'revenueReduction0to14Percent', label: '0-14% reduction', trigger: 'selfIsolatingQuestion' },
+      { value: 'revenueReduction15to29Percent', label: '15-29% reduction', trigger: 'selfIsolatingQuestion' },
+      { value: 'revenueReduction30to49Percent', label: '30-49% reduction', trigger: 'selfIsolatingQuestion' },
+      { value: 'revenueReduction50orMorePercent', label: '50% or more reduction', trigger: 'selfIsolatingQuestion' }
+    ]
+  }, {
+    id: 'selfIsolatingQuestion',
+    message: 'Does any of the below circumstances apply to you?',
+    trigger: 'selfIsolating'
+  }, {
+    id: 'selfIsolating',
+    options: [
+      { value: 'selfIsolatingReasonExistingHealthConcerns', label: 'In self-isolation or self-quarantine due to health concerns', trigger: 'supportOptionsQuestion' },
+      { value: 'selfIsolatingReasonReturnFromTravel', label: 'In self-isolation or self-quarantine due to travel', trigger: 'supportOptionsQuestion' },
+      { value: 'selfIsolatingReasonNdisParticipant', label: 'National Disability Insurance Scheme (NDIS) participant', trigger: 'supportOptionsQuestion' },
+      { value: 'selfIsolatingReasonHealthcareWorker', label: 'Healthcare worker', trigger: 'supportOptionsQuestion' },
+      { value: 'false', label: 'None of the above', trigger: 'supportOptionsQuestion' }
+    ]
+  }, {
+    id: 'supportOptionsQuestion',
+    message: 'What support do you need most right now?',
+    trigger: 'supportOptions'
+  }, {
+    id: 'supportOptions',
+    options: [
+      { value: 'supportOptionsIncomeSupport', label: 'Income support', trigger: 'covidEnd' },
+      { value: 'supportOptionsSupportWithHousingPayments', label: 'Support with housing payments', trigger: 'covidEnd' },
+      { value: 'supportOptionsFoodAndHousehold', label: 'Help with food and household items', trigger: 'covidEnd' },
+      { value: 'supportOptionsLifestyle', label: 'Help adjusting to a different lifestyle', trigger: 'covidEnd' },
+      { value: 'supportOptionsChildSupport', label: 'Support for my children or dependents', trigger: 'covidEnd' },
+      { value: 'supportOptionsMentalHealth', label: 'Support for my mental health', trigger: 'covidEnd' },
+      { value: 'false', label: 'None of the above', trigger: 'covidEnd' }
+    ]
+  }, {
+    id: 'covidEnd',
+    message: 'Thanks! I will get some useful information now.',
+    trigger: 'covidComponent'
+  }, {
+    id: 'covidComponent',
+    component: <Covid />,
+    trigger: 'welcomeAgain'
   }, {
     id: 'translate-covid-form',
     component: <Dropzone
